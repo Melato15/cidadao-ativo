@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -25,6 +26,11 @@ export class UsersService {
 
   async findAll() {
     return this.users;
+  }
+
+  async create(user: CreateUserDto) {
+    this.users.push({ id: Date.now().toString(), ...user });
+    return user;
   }
 
   async validatePassword(cpf: string, password: string): Promise<boolean> {
